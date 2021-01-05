@@ -18,7 +18,10 @@ class PlacesProvider with ChangeNotifier {
           id: DateTime.now().toString(),
           title: pickedTitle,
           image: pickedImage,
-          location: null);
+          location: PlaceLocationModel(
+            latitude: 0.0,
+            longitude: 0.0
+          ));
 
       _items.add(newPlace);
       notifyListeners();

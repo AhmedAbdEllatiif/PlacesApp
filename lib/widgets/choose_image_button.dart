@@ -14,14 +14,14 @@ class ChooseImageButton extends StatefulWidget {
 
 
 
-  ChooseImageButton({this.onSelectImage});
+  ChooseImageButton({required this.onSelectImage});
 
   @override
   _ChooseImageButtonState createState() => _ChooseImageButtonState();
 }
 
 class _ChooseImageButtonState extends State<ChooseImageButton> {
-  File _storedImageFile;
+  late File _storedImageFile;
 
   Future<void> _takePicture(ImageSource imageSource) async {
     // 1. Create an ImagePicker instance.

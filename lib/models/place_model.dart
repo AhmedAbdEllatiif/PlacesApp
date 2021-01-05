@@ -11,10 +11,10 @@ class PlaceModel {
   final File image; //for images from local storage (onDevice)
 
   PlaceModel({
-    @required this.id,
-    @required this.title,
-    @required this.image,
-    @required this.location,
+    required this.id,
+    required this.title,
+    required this.image,
+    required this.location,
   });
 }
 
@@ -24,8 +24,8 @@ class PlaceLocationModel {
   final String address;
 
   PlaceLocationModel({
-    @required this.latitude,
-    @required this.longitude,
-    this.address,
+    required this.latitude,
+    required this.longitude,
+    this.address = '',
   });
 }
