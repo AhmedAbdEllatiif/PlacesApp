@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,14 +15,14 @@ class ChooseImageButton extends StatefulWidget {
 
 
 
-  ChooseImageButton({required this.onSelectImage});
+  ChooseImageButton({this.onSelectImage});
 
   @override
   _ChooseImageButtonState createState() => _ChooseImageButtonState();
 }
 
 class _ChooseImageButtonState extends State<ChooseImageButton> {
-  late File _storedImageFile;
+   File _storedImageFile;
 
   Future<void> _takePicture(ImageSource imageSource) async {
     // 1. Create an ImagePicker instance.
@@ -90,36 +91,34 @@ class _ChooseImageButtonState extends State<ChooseImageButton> {
 
         ///Choose image button
         Center(
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-                ///Capture image
-                FlatButton.icon(
-                  icon: Icon(Icons.camera),
-                  textColor: Theme
-                      .of(context)
-                      .primaryColor,
-                  label: Text('Take Picture'),
-                  onPressed: () {
-                    _takePicture(ImageSource.camera);
-                  },
-                ),
+              ///Capture image
+              FlatButton.icon(
+                icon: Icon(Icons.camera),
+                textColor: Theme
+                    .of(context)
+                    .primaryColor,
+                label: Text('Take Picture'),
+                onPressed: () {
+                  _takePicture(ImageSource.camera);
+                },
+              ),
 
-                ///Choose form gallery
-                FlatButton.icon(
-                  icon: Icon(Icons.image),
-                  textColor: Theme
-                      .of(context)
-                      .primaryColor,
-                  label: Text('Choose from gallery'),
-                  onPressed: () {
-                    _takePicture(ImageSource.gallery);
-                  },
-                ),
-              ],
-            ),
+              ///Choose form gallery
+              FlatButton.icon(
+                icon: Icon(Icons.image),
+                textColor: Theme
+                    .of(context)
+                    .primaryColor,
+                label: Text('Choose from gallery'),
+                onPressed: () {
+                  _takePicture(ImageSource.gallery);
+                },
+              ),
+            ],
           ),
         ),
       ],

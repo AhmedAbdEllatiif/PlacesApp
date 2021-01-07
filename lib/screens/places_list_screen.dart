@@ -23,46 +23,53 @@ class PlacesListScreen extends StatelessWidget {
       ),
 
       ///body
-      body: Consumer<PlacesProvider>(
-        builder: (_, placesProvider, builderChild) {
-          return placesProvider.items.length <= 0
-              ? builderChild
-              : ListView.builder(
-                  itemCount: placesProvider.items.length,
-                  itemBuilder: (_, index) {
-                    PlaceModel placeModel = placesProvider.items[index];
-                    return ListTile(
-                      title: Text(placeModel.title),
-                      leading: CircleAvatar(
-                        backgroundImage: FileImage(placeModel.image),
+      body: FutureBuilder(
+        future: Provider.of<PlacesProvider>(context, listen: false)
+            .fetchAndSetPlaces(),
+        builder: (context, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(child: CircularProgressIndicator())
+            : Consumer<PlacesProvider>(
+                builder: (_, placesProvider, builderChild) {
+                  return placesProvider.items.length <= 0
+                      ? builderChild
+                      : ListView.builder(
+                          itemCount: placesProvider.items.length,
+                          itemBuilder: (_, index) {
+                            PlaceModel placeModel = placesProvider.items[index];
+                            return ListTile(
+                              title: Text(placeModel.title),
+                              leading: CircleAvatar(
+                                backgroundImage: FileImage(placeModel.image),
+                              ),
+                              onTap: () {
+                                //Go to place details screen
+                              },
+                            );
+                          },
+                        );
+                },
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Got no places yet, Start adding some...'),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    Container(
+                      width: 200.0,
+                      child: RaisedButton.icon(
+                        label: Text('Add Place'),
+                        icon: Icon(Icons.add),
+                        color: Theme.of(context).accentColor,
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(AddPlaceScreen.routeName),
                       ),
-                      onTap: () {
-                        //Go to place details screen
-                      },
-                    );
-                  },
-                );
-        },
-        child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Got no places yet, Start adding some...'),
-            SizedBox(
-              height: 15.0,
-            ),
-            Container(
-              width: 200.0,
-              child: RaisedButton.icon(
-                label: Text('Add Place'),
-                icon: Icon(Icons.add),
-                color: Theme.of(context).accentColor,
-                onPressed: () =>
-                    Navigator.of(context).pushNamed(AddPlaceScreen.routeName),
+                    ),
+                  ],
+                )),
               ),
-            ),
-          ],
-        )),
       ),
     );
   }
